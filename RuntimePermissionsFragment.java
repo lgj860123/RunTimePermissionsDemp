@@ -1,9 +1,9 @@
 package com.example.luogj.runtimepermissionsdemp;
 
-import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +12,12 @@ import android.view.ViewGroup;
  * Created by Administrator on 2018/3/25.
  */
 
-public class RuntimePermissionsFragment extends Fragment{
+public class RuntimePermissionsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, null);
-
         // BEGIN_INCLUDE(m_only_permission)
         if (Build.VERSION.SDK_INT < 23) {
             /*
@@ -31,8 +30,6 @@ public class RuntimePermissionsFragment extends Fragment{
              */
             root.findViewById(R.id.button_contacts).setVisibility(View.GONE);
         }
-        // END_INCLUDE(m_only_permission)
-
         return root;
     }
 }

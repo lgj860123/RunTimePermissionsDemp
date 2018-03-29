@@ -20,31 +20,20 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
     public static final String TAG = "MainActivity";
 
-    /**
-     * Id to identify a camera permission request.
-     */
+    //定义拍照常量
     private static final int REQUEST_CAMERA = 0;
 
-    /**
-     * Id to identify a contacts permission request.
-     */
+    //定义联络常量
     private static final int REQUEST_CONTACTS = 1;
 
-    /**
-     * Permissions required to read and write contacts. Used by the {@link ContactsFragment}.
-     */
+    //定义权限数组
     private static String[] PERMISSIONS_CONTACT = {Manifest.permission.READ_CONTACTS,
             Manifest.permission.WRITE_CONTACTS};
 
-    /**
-     * Root of the layout of this Activity.
-     */
+    //定义view
     private View mLayout;
 
-    /**
-     * Called when the 'show camera' button is clicked.
-     * Callback is defined in resource layout definition.
-     */
+    //显示照相布局
     public void showCamera(View view) {
         Log.i(TAG, "Show camera button pressed. Checking permission.");
         // BEGIN_INCLUDE(camera_permission)
@@ -52,36 +41,28 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             // Camera permission has not been granted.
-
             requestCameraPermission();
-
         } else {
 
             // Camera permissions is already available, show the camera preview.
-            Log.i(TAG,
-                    "CAMERA permission has already been granted. Displaying camera preview.");
+            Log.i(TAG,"CAMERA permission has already been granted. Displaying camera preview.");
             showCameraPreview();
         }
         // END_INCLUDE(camera_permission)
-
     }
 
     /**
-     * Requests the Camera permission.
-     * If the permission has been denied previously, a SnackBar will prompt the user to grant the
-     * permission, otherwise it is requested directly.
+     *请求照相权限
      */
     private void requestCameraPermission() {
         Log.i(TAG, "CAMERA permission has NOT been granted. Requesting permission.");
-
         // BEGIN_INCLUDE(camera_permission_request)
         if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.CAMERA)) {
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // For example if the user has previously denied the permission.
-            Log.i(TAG,
-                    "Displaying camera permission rationale to provide additional context.");
+            Log.i(TAG,"Displaying camera permission rationale to provide additional context.");
             Snackbar.make(mLayout, R.string.permission_camera_rationale,
                     Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.ok, new View.OnClickListener() {
@@ -94,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                     })
                     .show();
         } else {
-
             // Camera permission has not been granted yet. Request it directly.
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     REQUEST_CAMERA);
@@ -108,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
      */
     public void showContacts(View v) {
         Log.i(TAG, "Show contacts button pressed. Checking permissions.");
-
         // Verify that all required contact permissions have been granted.
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED
@@ -117,20 +96,16 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             // Contacts permissions have not been granted.
             Log.i(TAG, "Contact permissions has NOT been granted. Requesting permissions.");
             requestContactsPermissions();
-
         } else {
 
             // Contact permissions have been granted. Show the contacts fragment.
-            Log.i(TAG,
-                    "Contact permissions have already been granted. Displaying contact details.");
+            Log.i(TAG,"Contact permissions have already been granted. Displaying contact details.");
             showContactDetails();
         }
     }
 
     /**
-     * Requests the Contacts permissions.
-     * If the permission has been denied previously, a SnackBar will prompt the user to grant the
-     * permission, otherwise it is requested directly.
+     * 请求联络权限
      */
     private void requestContactsPermissions() {
         // BEGIN_INCLUDE(contacts_permission_request)
@@ -138,13 +113,10 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
                 Manifest.permission.READ_CONTACTS)
                 || ActivityCompat.shouldShowRequestPermissionRationale(this,
                 Manifest.permission.WRITE_CONTACTS)) {
-
             // Provide an additional rationale to the user if the permission was not granted
             // and the user would benefit from additional context for the use of the permission.
             // For example, if the request has been denied previously.
-            Log.i(TAG,
-                    "Displaying contacts permission rationale to provide additional context.");
-
+            Log.i(TAG,"Displaying contacts permission rationale to provide additional context.");
             // Display a SnackBar with an explanation and a button to trigger the request.
             Snackbar.make(mLayout, R.string.permission_contacts_rationale,
                     Snackbar.LENGTH_INDEFINITE)
